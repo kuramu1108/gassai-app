@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.Gassai.Toolbar" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/montserrat_light</item>
+    </style>
+    <style name="Widget.Gassai.Backdrop" parent="">
+        <item name="android:background">@color/primaryColor</item>
+    </style>
+
+    <style name="Widget.Gassai.Divider" parent="">
+        <item name="android:background">@color/viewDividerColor</item>
+    </style>
+
+    <style name="Widget.Gassai.Button.IconButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+    </style>
+</resources>
