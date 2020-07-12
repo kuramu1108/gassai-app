@@ -1,20 +1,24 @@
 package com.pocraft.gassai.ui.team.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.*
+import com.pocraft.gassai.db.TeamRepository
 import com.pocraft.gassai.model.Team
 import com.pocraft.gassai.model.dummyTeamList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class TeamViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
-    }
-    val text: LiveData<String> = _text
-
-    private val _teams = MutableLiveData<List<Team>>().apply {
-        value = dummyTeamList
-    }
+class TeamViewModel @ViewModelInject constructor(
+    private val teamRepository: TeamRepository
+) : ViewModel() {
+    private val _teams = teamRepository.teams().asLiveData(viewModelScope.coroutineContext)
     val teams: LiveData<List<Team>> = _teams
+
+    fun saveTeams() {
+        viewModelScope.launch {
+            if (teamRepository.isEmpty()) {
+                teamRepository.save(dummyTeamList)
+            }
+        }
+    }
 }

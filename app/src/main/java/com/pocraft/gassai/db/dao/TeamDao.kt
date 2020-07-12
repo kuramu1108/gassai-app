@@ -1,10 +1,8 @@
 package com.pocraft.gassai.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pocraft.gassai.model.Team
+import com.pocraft.gassai.model.TeamWithSessions
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,4 +15,11 @@ interface TeamDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(teams: List<Team>)
+
+    @Transaction
+    @Query("SELECT * FROM team")
+    fun getTeamsSessions(): List<TeamWithSessions>
+
+    @Query("SELECT COUNT(teamId) FROM team")
+    suspend fun rowCount(): Int
 }

@@ -2,13 +2,13 @@ package com.pocraft.gassai.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Entity(tableName = "session")
 data class Session(
-    @PrimaryKey val id: Int,
-    val team: Team,
-    val venue: Venue,
+    @PrimaryKey val sessionId: Int,
+    val teamPerformingId: Int,
+    val venueAtId: Int,
     val day: Int,
-    val time: LocalDate
+    val time: LocalDateTime
 )

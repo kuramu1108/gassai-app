@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pocraft.gassai.databinding.ItemSessionBinding
 import com.pocraft.gassai.model.Session
+import com.pocraft.gassai.model.SessionWithTeam
 
 class SessionsRVAdapter(
-    private val data: List<Session>
+    private var data: List<SessionWithTeam> = listOf()
 ) : RecyclerView.Adapter<SessionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
         val binding = ItemSessionBinding.inflate(
@@ -26,6 +27,10 @@ class SessionsRVAdapter(
         }
     }
 
+    fun update(data: List<SessionWithTeam>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
 }
 
 class SessionViewHolder(val binding: ItemSessionBinding) : RecyclerView.ViewHolder(binding.root)

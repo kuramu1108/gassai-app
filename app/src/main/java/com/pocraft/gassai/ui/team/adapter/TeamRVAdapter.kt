@@ -7,7 +7,7 @@ import com.pocraft.gassai.databinding.ItemTeamBinding
 import com.pocraft.gassai.model.Team
 
 class TeamRVAdapter(
-    private val data: List<Team>
+    private var data: List<Team> = listOf()
 ) : RecyclerView.Adapter<TeamViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
         val binding = ItemTeamBinding.inflate(
@@ -28,6 +28,11 @@ class TeamRVAdapter(
                 binding.teamFestival.text = festival
             }
         }
+    }
+
+    fun update(data: List<Team>) {
+        this.data = data
+        notifyDataSetChanged()
     }
 }
 

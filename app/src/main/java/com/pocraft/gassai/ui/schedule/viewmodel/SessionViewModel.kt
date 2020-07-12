@@ -1,26 +1,24 @@
 package com.pocraft.gassai.ui.schedule.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.pocraft.gassai.model.Session
-import com.pocraft.gassai.model.Venue
-import com.pocraft.gassai.model.dummySessionDay1
-import com.pocraft.gassai.model.dummyVenueList
+import com.pocraft.gassai.db.SessionRepository
+import com.pocraft.gassai.model.*
 import com.pocraft.gassai.ui.schedule.state.BottomSheetState
+import kotlinx.coroutines.launch
 
-class SessionViewModel : ViewModel() {
+class SessionViewModel @ViewModelInject constructor(
+    private val sessionRepository: SessionRepository
+) : ViewModel() {
     private val _venueList = MutableLiveData<List<Venue>>().apply {
         value = dummyVenueList
     }
     val venueList: LiveData<List<Venue>> = _venueList
 
-    private val _sessionList = MutableLiveData<List<Session>>().apply {
-        value = dummySessionDay1
-    }
+    private val _sessionList = sessionRepository.sessionsWithTeam().asLiveData(viewModelScope.coroutineContext)
 
-    val sessionList: LiveData<List<Session>> = _sessionList
+    val sessionList: LiveData<List<SessionWithTeam>> = _sessionList
 
     private val _selectedVenue = MutableLiveData<String>()
 
@@ -43,5 +41,11 @@ class SessionViewModel : ViewModel() {
 
     fun viewBackDrop() {
         _bottomSheetState.value = bottomSheetState.value!!.toggleState()
+    }
+
+    fun save() {
+        viewModelScope.launch {
+            sessionRepository.save(dummySessionDay1)
+        }
     }
 }

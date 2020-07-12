@@ -2,12 +2,12 @@ package com.pocraft.gassai.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Entity(tableName = "post")
 data class Post (
-    @PrimaryKey val id: Int,
+    @PrimaryKey val postId: Int,
     val title: String,
     val url: String,
-    val date: LocalDate
+    val date: LocalDateTime
 )

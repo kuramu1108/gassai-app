@@ -17,4 +17,7 @@ interface PostDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(posts: List<Post>)
+
+    @Query("SELECT COUNT(postId) FROM post")
+    suspend fun rowCount(): Int
 }

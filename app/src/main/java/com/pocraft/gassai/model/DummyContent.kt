@@ -1,6 +1,8 @@
 package com.pocraft.gassai.model
 
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
 
 val dummySchedule = arrayOf("Day 1", "Day 2", "Saved")
 
@@ -59,26 +61,27 @@ val t45 = Team(13, "宵あさ", "福岡県", "福岡市","大蛇山祭り", 1, "
 //val t35 = Team(13, "", "福岡県", "","", , "")
 val dummyTeamList = listOf(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32,t33,t34,t35,t36,t37,t38,t39,t40,t41,t42,t43,t44,t45)
 
-val post1 = Post(0, "「WEB版九州がっ祭」開催のご案内1", "www.www", LocalDate.now())
-val post2 = Post(1, "「WEB版九州がっ祭」開催のご案内2", "www.www", LocalDate.now())
-val post3 = Post(2, "「WEB版九州がっ祭」開催のご案内3", "www.www", LocalDate.now())
-val post4 = Post(3, "「WEB版九州がっ祭」開催のご案内4", "www.www", LocalDate.now())
-val post5 = Post(4, "「WEB版九州がっ祭」開催のご案内5", "www.www", LocalDate.now())
-val post6 = Post(5, "「WEB版九州がっ祭」開催のご案内6", "www.www", LocalDate.now())
+val now = LocalDateTime.now()
+val post1 = Post(0, "「WEB版九州がっ祭」開催のご案内1", "www.www", now)
+val post2 = Post(1, "「WEB版九州がっ祭」開催のご案内2", "www.www", now)
+val post3 = Post(2, "「WEB版九州がっ祭」開催のご案内3", "www.www", now)
+val post4 = Post(3, "「WEB版九州がっ祭」開催のご案内4", "www.www", now)
+val post5 = Post(4, "「WEB版九州がっ祭」開催のご案内5", "www.www", now)
+val post6 = Post(5, "「WEB版九州がっ祭」開催のご案内6", "www.www", now)
 val dummyPostList = listOf(post1, post2, post3, post4, post5, post6)
 
-val session1 = Session(0, t1, venue1, 1, LocalDate.now())
-val session2 = Session(1, t2, venue1, 1, LocalDate.now())
-val session3 = Session(2, t1, venue1, 1, LocalDate.now())
-val session4 = Session(3, t1, venue1, 1, LocalDate.now())
-val session5 = Session(4, t2, venue1, 1, LocalDate.now())
-val session6 = Session(5, t1, venue1, 1, LocalDate.now())
-val session7 = Session(6, t1, venue1, 1, LocalDate.now())
-val session8 = Session(7, t2, venue1, 1, LocalDate.now())
-val session9 = Session(8, t1, venue1, 1, LocalDate.now())
-val session10 = Session(9, t1, venue1, 1, LocalDate.now())
-val session11 = Session(10, t1, venue1, 1, LocalDate.now())
-val session12 = Session(11, t2, venue1, 1, LocalDate.now())
-val session13 = Session(12, t1, venue1, 1, LocalDate.now())
+val session1 = Session(0, 1, 1, 1, now)
+val session2 = Session(1, 2, 1, 1, now)
+val session3 = Session(2, 1, 1, 1, now)
+val session4 = Session(3, 1, 1, 1, now)
+val session5 = Session(4, 2, 1, 1, now)
+val session6 = Session(5, 1, 1, 1, now)
+val session7 = Session(6, 1, 1, 1, now)
+val session8 = Session(7, 2, 1, 1, now)
+val session9 = Session(8, 1, 1, 1, now)
+val session10 = Session(9, 1, 1, 1, now)
+val session11 = Session(10, 1, 1, 1, now)
+val session12 = Session(11, 2, 1, 1, now)
+val session13 = Session(12, 1, 1, 1, now)
 val dummySessionDay1 = listOf(session1, session2, session3, session4, session5, session6, session7, session8, session9,
     session10, session11, session12, session13)

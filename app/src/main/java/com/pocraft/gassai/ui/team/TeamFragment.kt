@@ -9,7 +9,9 @@ import com.pocraft.gassai.R
 import com.pocraft.gassai.databinding.FragmentTeamBinding
 import com.pocraft.gassai.ui.team.adapter.TeamRVAdapter
 import com.pocraft.gassai.ui.team.viewmodel.TeamViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TeamFragment : Fragment(R.layout.fragment_team) {
 
     private val teamViewModel by viewModels<TeamViewModel>()
@@ -20,9 +22,12 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTeamBinding.bind(view)
+        val adapter = TeamRVAdapter()
+        binding.teamRecyclerview.adapter = adapter
         teamViewModel.teams.observe(viewLifecycleOwner) { teams ->
-            binding.teamRecyclerview.adapter = TeamRVAdapter(teams)
+            adapter.update(teams)
         }
+        teamViewModel.saveTeams()
     }
 
     override fun onDestroyView() {

@@ -10,7 +10,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.pocraft.gassai.databinding.FragmentScheduleBinding
 import com.pocraft.gassai.ui.schedule.viewmodel.ScheduleViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScheduleFragment : Fragment() {
 
     private val scheduleViewModel: ScheduleViewModel by viewModels()

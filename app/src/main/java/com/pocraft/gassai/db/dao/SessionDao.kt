@@ -1,10 +1,8 @@
 package com.pocraft.gassai.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pocraft.gassai.model.Session
+import com.pocraft.gassai.model.SessionWithTeam
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,4 +18,8 @@ interface SessionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(sessions: List<Session>)
+
+    @Transaction
+    @Query("SELECT * FROM session")
+    fun allSessionsWithTeam(): Flow<List<SessionWithTeam>>
 }

@@ -21,12 +21,9 @@ import com.pocraft.gassai.ui.schedule.adapter.VenueRVAdapter
 import com.pocraft.gassai.ui.schedule.state.BottomSheetState
 import com.pocraft.gassai.ui.schedule.viewmodel.ScheduleViewModel
 import com.pocraft.gassai.ui.schedule.viewmodel.SessionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SessionsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class SessionsFragment : Fragment(R.layout.fragment_sessions) {
     val scheduleViewModel by activityViewModels<ScheduleViewModel>()
     val sessionViewModel by viewModels<SessionViewModel>()
@@ -70,6 +67,8 @@ class SessionsFragment : Fragment(R.layout.fragment_sessions) {
 //            binding.scheduleList,
 //            View.LAYOUT_DIRECTION_LTR
 //        )
+        val adapter = SessionsRVAdapter()
+        binding.sessionRecyclerview.adapter = adapter
 
         sessionSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -108,10 +107,11 @@ class SessionsFragment : Fragment(R.layout.fragment_sessions) {
         }
 
         sessionViewModel.sessionList.observe(viewLifecycleOwner) { sessions ->
-            binding.sessionRecyclerview.adapter = SessionsRVAdapter(sessions)
+            adapter.update(sessions)
         }
 
 //        sessionViewModel.venueSelected(0)
+//        sessionViewModel.save()
     }
 
     override fun onDestroyView() {
