@@ -16,4 +16,6 @@ class SessionRepository @Inject constructor(private val sessionDao: SessionDao) 
     suspend fun save(data: List<Session>) {
         sessionDao.insert(data)
     }
+
+    suspend fun isEmpty() = sessionDao.rowCount() == 0
 }

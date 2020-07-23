@@ -22,4 +22,7 @@ interface SessionDao {
     @Transaction
     @Query("SELECT * FROM session")
     fun allSessionsWithTeam(): Flow<List<SessionWithTeam>>
+
+    @Query("SELECT COUNT(sessionId) FROM session")
+    suspend fun rowCount(): Int
 }

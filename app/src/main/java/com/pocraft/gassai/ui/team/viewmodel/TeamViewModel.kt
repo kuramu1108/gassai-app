@@ -21,4 +21,12 @@ class TeamViewModel @ViewModelInject constructor(
             }
         }
     }
+
+    init {
+        viewModelScope.launch {
+            launch {
+
+            }
+        }
+    }
 }

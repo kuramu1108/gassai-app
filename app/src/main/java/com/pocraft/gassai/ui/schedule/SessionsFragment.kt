@@ -2,6 +2,7 @@ package com.pocraft.gassai.ui.schedule
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
@@ -75,6 +76,7 @@ class SessionsFragment : Fragment(R.layout.fragment_sessions) {
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
+//                Log.d("DEBUG", "$newState")
                 sessionViewModel.setBottomSheetState(when(newState) {
                     BottomSheetBehavior.STATE_COLLAPSED -> BottomSheetState.COLLAPSED
                     BottomSheetBehavior.STATE_EXPANDED -> BottomSheetState.EXPANDED
@@ -96,6 +98,7 @@ class SessionsFragment : Fragment(R.layout.fragment_sessions) {
             binding.venueText.text = venue
         }
         sessionViewModel.bottomSheetState.observe(viewLifecycleOwner) { state ->
+//            Log.d("DEBUG", "ob $state")
             when (state) {
                 BottomSheetState.EXPANDED -> {
                     sessionSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -103,6 +106,7 @@ class SessionsFragment : Fragment(R.layout.fragment_sessions) {
                 BottomSheetState.COLLAPSED -> {
                     sessionSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
+                BottomSheetState.TRANSFORMING -> Unit
             }
         }
 
@@ -111,7 +115,7 @@ class SessionsFragment : Fragment(R.layout.fragment_sessions) {
         }
 
 //        sessionViewModel.venueSelected(0)
-//        sessionViewModel.save()
+        sessionViewModel.save()
     }
 
     override fun onDestroyView() {

@@ -2,6 +2,8 @@ package com.pocraft.gassai.di
 
 import android.content.Context
 import androidx.room.Room
+import com.pocraft.gassai.api.GassaiApi
+import com.pocraft.gassai.api.KtorGassaiApi
 import com.pocraft.gassai.db.AppDatabase
 import com.pocraft.gassai.db.PostRepository
 import com.pocraft.gassai.db.SessionRepository
@@ -15,7 +17,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.ktor.client.HttpClient
+import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Qualifier
+annotation class ApiEndpoint
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -38,8 +45,9 @@ object DatabaseModule {
         Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
-            "gassai.db"
-        ).build()
+            "gassai.db")
+            .fallbackToDestructiveMigration()
+            .build()
 }
 
 @Module
@@ -57,6 +65,23 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providePostRepository(postDao: PostDao): PostRepository =
-        PostRepository(postDao)
+    fun providePostRepository(postDao: PostDao, gassaiApi: GassaiApi): PostRepository =
+        PostRepository(postDao, gassaiApi)
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+object ApiModule {
+    @Singleton
+    @Provides
+    fun provideGassaiApi(httpClient: HttpClient, @ApiEndpoint apiEndpoint: String): GassaiApi =
+        KtorGassaiApi(httpClient, apiEndpoint)
+
+    @Provides
+    fun provideHttpClient(): HttpClient =
+        HttpClient()
+
+    @ApiEndpoint
+    @Provides
+    fun provideApiEndpoint() = "https://po-quick-server.herokuapp.com/api"
 }

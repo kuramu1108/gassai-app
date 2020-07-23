@@ -10,7 +10,9 @@ import com.pocraft.gassai.R
 import com.pocraft.gassai.databinding.FragmentHomeBinding
 import com.pocraft.gassai.ui.home.adapter.PostRVAdapter
 import com.pocraft.gassai.ui.home.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel by viewModels<HomeViewModel>()
@@ -28,8 +30,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        val drawer = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
 //        val appBarConfiguration = AppBarConfiguration(navController.graph, drawer)
 //        binding.homeCollapsingBar.setupWithNavController(navController, appBarConfiguration)
+        val adapter = PostRVAdapter()
+        binding.postsRecyclerview.adapter = adapter
+
         homeViewModel.posts.observe(viewLifecycleOwner) { posts ->
-            binding.postsRecyclerview.adapter = PostRVAdapter(posts)
+            adapter.update(posts)
         }
         binding.homeScheduleButton.setOnClickListener {
             it.findNavController().navigate(

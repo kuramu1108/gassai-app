@@ -24,6 +24,14 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit"/>
+        <action
+            android:id="@+id/action_nav_home_to_chrome"
+            app:destination="@id/chrome">
+            <argument
+                android:name="url"
+                app:argType="string"
+                app:nullable="false"/>
+        </action>
     </fragment>
 
     <fragment
@@ -52,4 +60,11 @@
             android:name="tabIndex"
             app:argType="integer" />
     </fragment>
+
+    <chrome
+        android:id="@+id/chrome"
+        android:name="com.pocraft.gassai.ui.browser.ChromeCustomTabsNavigator"
+        android:label="chrome"
+        app:toolbarColor="@color/primaryColor"
+        app:secondaryToolbarColor="@color/secondaryColor"/>
 </navigation>

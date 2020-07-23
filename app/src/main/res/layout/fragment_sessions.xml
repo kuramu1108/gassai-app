@@ -31,13 +31,12 @@
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/venue_text"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Caption"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Venue 1"
-                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,10 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="Venue"
-                android:textSize="16sp"
                 android:paddingTop="0dp"
                 app:icon="@drawable/ic_baseline_expand_more"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Caption"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBaseline_toBaselineOf="@id/venue_text" />
 
