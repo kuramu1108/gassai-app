@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/post_item_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingVertical="5dp"
+    android:background="?android:attr/selectableItemBackground">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
         android:layout_width="wrap_content"
@@ -17,24 +19,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintGuide_end="40dp"
         android:orientation="vertical"/>
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="horizontal"/>
+
 
     <TextView
         android:id="@+id/post_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="20dp"
-        android:text="3/28"
+        android:paddingBottom="10dp"
+        android:text="2020/03/28"
         android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Caption"
         app:layout_constraintLeft_toRightOf="@id/guideline_start"
-        app:layout_constraintTop_toTopOf="@id/guideline_top"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/post_title"
@@ -42,8 +37,8 @@
         android:layout_height="wrap_content"
         android:text="「九州がっ祭2020」「第14回火の国YOSAKOIまつり」中止のお知らせ"
         android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
-        app:layout_constraintLeft_toRightOf="@id/post_date"
-        app:layout_constraintRight_toLeftOf="@id/guideline_end"
-        app:layout_constraintTop_toTopOf="@id/guideline_top" />
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/post_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

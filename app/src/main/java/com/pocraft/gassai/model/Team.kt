@@ -11,5 +11,6 @@ data class Team (
     val region: String,
     val festival: String,
     val participation: Int,
-    val description: String
+    val description: String,
+    val imgUrl: String
 )

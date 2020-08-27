@@ -10,5 +10,6 @@ data class Session(
     val teamPerformingId: Int,
     val venueAtId: Int,
     val day: Int,
-    val time: LocalDateTime
+    val time: LocalDateTime,
+    var isFavorite: Boolean = false
 )

@@ -22,4 +22,7 @@ interface TeamDao {
 
     @Query("SELECT COUNT(teamId) FROM team")
     suspend fun rowCount(): Int
+
+    @Query("DELETE FROM team")
+    suspend fun deleteAll()
 }

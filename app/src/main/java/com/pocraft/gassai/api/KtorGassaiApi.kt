@@ -1,6 +1,7 @@
 package com.pocraft.gassai.api
 
 import com.pocraft.gassai.api.response.PostResponse
+import com.pocraft.gassai.api.response.TeamResponse
 import com.pocraft.gassai.di.ApiEndpoint
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
@@ -28,5 +29,13 @@ class KtorGassaiApi @Inject constructor(
 
     override fun getPostsAsync(): Deferred<PostResponse> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getTeams(): List<TeamResponse> {
+        val rawResponse = httpClient.get<String> {
+            url("$apiEndpoint/teams/all")
+            accept(ContentType.Application.Json)
+        }
+        return json.parse(TeamResponse.serializer().list, rawResponse)
     }
 }

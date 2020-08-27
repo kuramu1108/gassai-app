@@ -22,9 +22,7 @@ class VenueRVAdapter(
     override fun onBindViewHolder(holder: VenueViewHolder, position: Int) {
         with(holder) {
             binding.venueBtn.text = data[position].name
-            binding.venueBtn.setOnClickListener {
-                sessionViewModel.venueSelected(position)
-            }
+
         }
     }
 }

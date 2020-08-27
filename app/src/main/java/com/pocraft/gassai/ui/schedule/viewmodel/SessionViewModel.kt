@@ -22,18 +22,24 @@ class SessionViewModel @ViewModelInject constructor(
 
     val sessionList: LiveData<List<SessionWithTeam>> = _sessionList
 
-    private val _selectedVenue = MutableLiveData<String>()
+    private val _selectedVenue = MutableLiveData<Venue>()
 
-    val selectedVenue: LiveData<String> = _selectedVenue
+    val selectedVenue: LiveData<Venue> = _selectedVenue
 
     private val _bottomSheetState = MutableLiveData(BottomSheetState.EXPANDED)
 
     val bottomSheetState: LiveData<BottomSheetState> = _bottomSheetState
 
-    fun venueSelected(index: Int) {
-        _selectedVenue.value = venueList.value!![index].name
+    fun venueSelected(venue: Venue) {
+        _selectedVenue.value = venue
         if (bottomSheetState.value!! == BottomSheetState.COLLAPSED) {
             _bottomSheetState.value = bottomSheetState.value!!.toggleState()
+        }
+    }
+
+    fun toggleFavorite(session: Session) {
+        viewModelScope.launch {
+            sessionRepository.toggleFavorite(session)
         }
     }
 
@@ -50,10 +56,6 @@ class SessionViewModel @ViewModelInject constructor(
             if (sessionRepository.isEmpty()) {
                 sessionRepository.save(dummySessionDay1)
             }
-            sessionRepository.sessionsFor(1)
-                .collect {
-
-                }
         }
     }
 

@@ -25,4 +25,7 @@ interface SessionDao {
 
     @Query("SELECT COUNT(sessionId) FROM session")
     suspend fun rowCount(): Int
+
+    @Update
+    suspend fun update(session: Session)
 }

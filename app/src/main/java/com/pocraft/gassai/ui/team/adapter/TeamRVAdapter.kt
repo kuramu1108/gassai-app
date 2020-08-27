@@ -3,6 +3,8 @@ package com.pocraft.gassai.ui.team.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
+import coil.transform.RoundedCornersTransformation
 import com.pocraft.gassai.databinding.ItemTeamBinding
 import com.pocraft.gassai.model.Team
 
@@ -26,6 +28,10 @@ class TeamRVAdapter(
                 binding.teamName.text = name
                 binding.teamOrigin.text = "$prefecture $region"
                 binding.teamFestival.text = festival
+                binding.teamImage.load(imgUrl) {
+                    crossfade(true)
+                    transformations(RoundedCornersTransformation(20f))
+                }
             }
         }
     }

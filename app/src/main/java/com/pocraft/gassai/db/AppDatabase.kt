@@ -19,7 +19,7 @@ import com.pocraft.gassai.model.Venue
         Team::class,
         Venue::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(Converter::class)

@@ -9,4 +9,5 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="viewDividerColor">#8E8E8E</color>
+    <color name="navigationBarColor">#CCFFFFFF</color>
 </resources>

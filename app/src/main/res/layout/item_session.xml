@@ -18,6 +18,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="20dp"/>
     <TextView
+        android:id="@+id/session_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="8dp"
+        android:text="00:00"
+        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"
+        android:textColor="@color/secondaryColor"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
         android:id="@+id/session_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +39,7 @@
         android:textColor="@color/secondaryTextColor"
         android:background="@drawable/shape_session_tag_background_examine"
         android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Overline"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintStart_toEndOf="@id/session_time"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -39,14 +50,14 @@
         android:paddingBottom="30dp"
         android:text="JR九州櫻燕隊"
         android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintStart_toEndOf="@id/session_time"
         app:layout_constraintTop_toBottomOf="@id/session_tag" />
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/session_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:src="@drawable/ic_baseline_favorite_border_24"
+        android:src="@drawable/favorite_button_selector"
         android:tint="@color/primaryColor"
         android:background="?selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"

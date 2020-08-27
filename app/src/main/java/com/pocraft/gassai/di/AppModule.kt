@@ -55,8 +55,8 @@ object DatabaseModule {
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideTeamRepository(teamDao: TeamDao): TeamRepository =
-        TeamRepository(teamDao)
+    fun provideTeamRepository(teamDao: TeamDao, gassaiApi: GassaiApi): TeamRepository =
+        TeamRepository(teamDao, gassaiApi)
 
     @Singleton
     @Provides
