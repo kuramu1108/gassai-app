@@ -12,18 +12,10 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_team"
-            app:destination="@id/nav_team"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/nav_team"/>
         <action
             android:id="@+id/action_nav_home_to_nav_schedule"
-            app:destination="@id/nav_schedule"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:destination="@id/nav_schedule"/>
         <action
             android:id="@+id/action_nav_home_to_chrome"
             app:destination="@id/chrome">

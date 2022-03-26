@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -26,6 +27,9 @@ import com.pocraft.gassai.ui.schedule.viewmodel.ScheduleViewModel
 import com.pocraft.gassai.ui.schedule.viewmodel.SessionViewModel
 import com.pocraft.gassai.utility.doOnApplyWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SessionsFragment : Fragment(R.layout.fragment_sessions) {
@@ -98,53 +102,45 @@ class SessionsFragment : Fragment(R.layout.fragment_sessions) {
             }
 
         })
-//        binding.toggleBtn.setOnClickListener(BackdropMenuToggler(requireActivity(), binding.scheduleList))
-//        binding.sessionsFragmentLbl.text = args.tabIndex.toString()
         binding.toggleBtn.setOnClickListener {
             sessionViewModel.viewBackDrop()
         }
 
-        sessionViewModel.venueList.observe(viewLifecycleOwner) { list: List<Venue> ->
-//            binding.venueBackdrop.adapter = VenueRVAdapter(list, sessionViewModel)
-            list.map {
-                val chip = layoutInflater.inflate(
-                    R.layout.layout_choice_chip,
-                    binding.venueFilters,
-                    false
-                ) as Chip
-                chip.text = it.name
-                chip.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) sessionViewModel.venueSelected(it)
+        lifecycleScope.launch {
+            sessionViewModel.state.collect { state ->
+                if (binding.venueFilters.childCount == 0) {
+                    state.venues.map {
+                        val chip = layoutInflater.inflate(
+                            R.layout.layout_choice_chip,
+                            binding.venueFilters,
+                            false
+                        ) as Chip
+                        chip.text = it.name
+                        chip.setOnCheckedChangeListener { _, isChecked ->
+                            if (isChecked) sessionViewModel.venueSelected(it)
+                        }
+                        binding.venueFilters.addView(chip)
+                    }
                 }
-                binding.venueFilters.addView(chip)
-            }
-        }
-        sessionViewModel.selectedVenue.observe(viewLifecycleOwner) { venue ->
-            binding.venueText.text = venue.name
-        }
-        sessionViewModel.bottomSheetState.observe(viewLifecycleOwner) { state ->
-//            Log.d("DEBUG", "ob $state")
-            when (state) {
-                BottomSheetState.EXPANDED -> {
-                    sessionSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                }
-                BottomSheetState.COLLAPSED -> {
-                    sessionSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                }
-                BottomSheetState.TRANSFORMING -> Unit
-            }
-        }
 
-        sessionViewModel.sessionList.observe(viewLifecycleOwner) { sessions ->
-            val filteredSession = when(args.tabIndex) {
-                0 -> sessions.filter { it.session.day == 1 }
-                1 -> sessions.filter { it.session.day == 2 }
-                else -> sessions.filter { it.session.isFavorite }
+                binding.venueText.text = state.selectedVenue.name
+                when (state.bottomSheetState) {
+                    BottomSheetState.EXPANDED -> {
+                        sessionSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    }
+                    BottomSheetState.COLLAPSED -> {
+                        sessionSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    }
+                    BottomSheetState.TRANSFORMING -> Unit
+                }
+                val filteredSession = when(args.tabIndex) {
+                    0 -> state.sessions.filter { it.session.day == 1 }
+                    1 -> state.sessions.filter { it.session.day == 2 }
+                    else -> state.sessions.filter { it.session.isFavorite }
+                }
+                adapter.submitList(filteredSession)
             }
-            adapter.submitList(filteredSession)
         }
-
-//        sessionViewModel.venueSelected(0)
         sessionViewModel.save()
     }
 

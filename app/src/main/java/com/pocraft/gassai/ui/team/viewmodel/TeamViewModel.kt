@@ -1,19 +1,21 @@
 package com.pocraft.gassai.ui.team.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.pocraft.gassai.db.TeamRepository
 import com.pocraft.gassai.model.Team
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TeamViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TeamViewModel @Inject constructor(
     private val teamRepository: TeamRepository
 ) : ViewModel() {
-    private val teams2 = MutableStateFlow<List<Team>>(emptyList())
+    private val teams = MutableStateFlow<List<Team>>(emptyList())
     private val selectedRegion = MutableStateFlow("")
 
     data class ViewState(
@@ -23,19 +25,6 @@ class TeamViewModel @ViewModelInject constructor(
 
     private val _state = MutableStateFlow(ViewState())
     val state: StateFlow<ViewState> = _state
-
-    private val _teams = MutableLiveData<List<Team>>().apply {
-        value = emptyList()
-    }
-    val teams: LiveData<List<Team>> = _teams.distinctUntilChanged()
-
-    fun saveTeams() {
-//        viewModelScope.launch {
-//            if (teamRepository.isEmpty()) {
-//                teamRepository.save(dummyTeamList)
-//            }
-//        }
-    }
 
     init {
         viewModelScope.launch {
@@ -47,17 +36,16 @@ class TeamViewModel @ViewModelInject constructor(
 
             launch {
                 teamRepository.teams().collect {
-//                    _teams.value = it
-                    teams2.value = it
+                    teams.value = it
                 }
             }
 
             combine(
-                teams2,
+                teams,
                 selectedRegion
-            ) { teams2, selectedRegion ->
+            ) { teams, selectedRegion ->
                 ViewState(
-                    teams = teams2,
+                    teams = teams,
                     selectedRegion = selectedRegion
                 )
             }.collect {

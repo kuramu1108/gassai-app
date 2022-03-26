@@ -15,8 +15,8 @@ import com.pocraft.gassai.db.dao.VenueDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -25,7 +25,7 @@ import javax.inject.Singleton
 annotation class ApiEndpoint
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object DatabaseModule {
     @Provides
     fun providePostDao(database: AppDatabase): PostDao = database.postDao()
@@ -51,7 +51,7 @@ object DatabaseModule {
 }
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object RepositoryModule {
     @Singleton
     @Provides
@@ -70,7 +70,7 @@ object RepositoryModule {
 }
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object ApiModule {
     @Singleton
     @Provides
